@@ -10,9 +10,15 @@ router.get('/', (req, res, next) => {
   });
 });
 
+router.get('/roles', (req, res, next) => {
+  db.Role.findAll({include: "Users"}).then(result => {
+    res.status(200).json(result);
+  })
+})
+
 router.get('/:id', (req, res, next) => {
   let id = req.params.id;
-  db.User.findById(id, {raw: true}).then(result => {
+  db.User.findById(id, {include: "Roles"}).then(result => {
     if (result == null) {
       res.status(404).json({message: 'Couldn\'t find a user with the id: ' + id});
     } else {

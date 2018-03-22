@@ -72,11 +72,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
   });
+
   User.associate = function(models) {
-    // associations can be defined here
+    User.belongsToMany(models.Role, {
+       as: 'Roles',
+       through: {
+         model: models.UserRoles,
+         unique: true,
+       },
+       foreignKey: 'userId'
+     });
   };
 
-  // Hooks, for some reason dont work when they're collected in the define options.
+  // This hook, for some reason doesn't work when declared in the define options.
   User.beforeCreate((user, options) => {
     return hashPassword(user.password, 10).then(hashedPw => {
       user.password = hashedPw;
