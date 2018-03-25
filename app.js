@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 
+var apiRouter = express.Router();
+
 let usersRouter = require('./routes/users');
 
 let app = express();
@@ -23,7 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/users', usersRouter);
+app.use('/api', apiRouter);
+
+apiRouter.use('/users', usersRouter);
 
 // Error handling
 app.use((req, res, next) => {

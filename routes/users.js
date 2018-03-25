@@ -10,12 +10,6 @@ router.get('/', (req, res, next) => {
   });
 });
 
-router.get('/roles', (req, res, next) => {
-  db.Role.findAll({include: "Users"}).then(result => {
-    res.status(200).json(result);
-  })
-})
-
 router.get('/:id', (req, res, next) => {
   let id = req.params.id;
   db.User.findById(id, {include: "Roles"}).then(result => {
