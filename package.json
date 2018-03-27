@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Running tests...\" && nyc mocha --reporter=html --reporter=text --reporter mocha-junit-reporter --timeout 100000"
+    "test": "echo \"Running tests...\" && nyc mocha --reporter=lcov --reporter=text --reporter mocha-junit-reporter --timeout 100000"
   },
   "keywords": [],
   "author": "",
