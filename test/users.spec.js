@@ -24,7 +24,7 @@ describe('Users endpoints:', () => {
         .end((err, res) => {
           res.should.have.status(200);
           res.body.should.be.a('array');
-          res.body.length.should.be.eql(0);
+          res.body.length.should.be.eql(1);
           done();
         });
     });
