@@ -21,3 +21,8 @@ Test_Job:
   stage: Test
   script:
    - npm test
+
+Analysis_Job:
+  stage: Inspect
+  script:
+   - sonar-scanner
