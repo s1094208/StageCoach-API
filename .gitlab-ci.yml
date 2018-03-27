@@ -9,7 +9,7 @@ Prepare_Build_Job:
   stage: Prepare
   script:
    - echo "Hello world"
-   - npm install
+   - npm install --dev
    
 Test_Job:
   stage: Test
