@@ -16,11 +16,11 @@ Prepare_Build_Job:
   script:
    - echo "Hello world"
    - npm install --only=dev
+   - npm test
    
 Test_Job:
   stage: Test
   script:
-   - npm test
 
 Analysis_Job:
   stage: Inspect
