@@ -8,11 +8,12 @@
     "logging": true
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "database_test",
-    "host": "127.0.0.1",
-    "dialect": "mysql"
+    "username": "postgres",
+    "password": "password",
+    "database": "stagecoach-test",
+    "host": "145.97.16.184",
+    "dialect": "postgres",
+    "logging": true
   },
   "production": {
     "username": "root",

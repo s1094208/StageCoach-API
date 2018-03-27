@@ -1,5 +1,15 @@
-job1:
- echo: "Hello world"
+stages:
+  - Prepare
+  - Build
+  - Test
+  - Inspect
+  - Clean
+
+Default_back_end:
+  stage: prepare
+  script:
+   - echo "Hello world"
+   - npm install
 
 job2:
   echo: "Hello universe"
