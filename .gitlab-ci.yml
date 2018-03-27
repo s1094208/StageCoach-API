@@ -18,10 +18,6 @@ Prepare_Build_Job:
    - npm install --only=dev
    - npm test
    
-Test_Job:
-  stage: Test
-  script:
-
 Analysis_Job:
   stage: Inspect
   script:
