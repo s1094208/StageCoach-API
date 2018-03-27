@@ -5,11 +5,8 @@ stages:
   - Inspect
   - Clean
 
-Default_back_end:
-  stage: prepare
+Prepare_Build_Job:
+  stage: Prepare
   script:
    - echo "Hello world"
    - npm install
-
-job2:
-  echo: "Hello universe"
