@@ -10,3 +10,8 @@ Prepare_Build_Job:
   script:
    - echo "Hello world"
    - npm install
+   
+Test_Job:
+  stage: Test
+  script:
+   - npm test
