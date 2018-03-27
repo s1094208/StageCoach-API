@@ -29,7 +29,7 @@ describe('Users endpoints:', () => {
         });
     });
 
-    describe('/POST user;', () => {
+    /*describe('/POST user;', () => {
       it('Should store a new user', (done) => {
         let user = {
           id: "A.Manen",
@@ -49,6 +49,6 @@ describe('Users endpoints:', () => {
             done();
           });
       });
-    });
+    });*/
   });
 });
