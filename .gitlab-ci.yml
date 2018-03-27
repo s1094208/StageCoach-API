@@ -1,0 +1,5 @@
+job1:
+ echo: "Hello world"
+
+job2:
+  echo: "Hello universe"
