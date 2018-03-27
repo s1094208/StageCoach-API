@@ -19,8 +19,9 @@ Prepare_Build_Job:
    - echo "Hello world"
    - npm install --only=dev
    - npm test
-   
-Analysis_Job:
-  stage: Inspect
-  script:
    - sonar-scanner
+   
+#Analysis_Job:
+#  stage: Inspect
+#  script:
+#   - sonar-scanner
