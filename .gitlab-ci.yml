@@ -36,7 +36,7 @@ Deploy_to_test:
   script:
     - echo "Deploy to test server"
   environment:
-    name: staging
+    name: Test
     url: https://145.97.16.184:3002
   only:
   - develop
@@ -46,7 +46,18 @@ Deploy_to_acceptance:
   script:
     - echo "Deploy to acceptance server"
   environment:
-    name: staging
+    name: Acceptance
     url: https://145.97.16.184:3001
+  only:
+  - master
+
+Deploy_to_production:
+  stage: Deploy
+  script:
+    - echo "Deploy to production server"
+  environment:
+    name: Acceptance
+    url: https://145.97.16.184:3000
+  when: manual
   only:
   - master
