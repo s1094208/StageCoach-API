@@ -44,7 +44,7 @@ Deploy_to_test:
 Deploy_to_acceptance:
   stage: Deploy
   script:
-    - echo "Deploy to test server"
+    - echo "Deploy to acceptance server"
   environment:
     name: staging
     url: https://145.97.16.184:3001
