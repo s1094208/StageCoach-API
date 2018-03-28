@@ -5,7 +5,7 @@ stages:
   - Inspect
   - Clean
 
-Build_Job:
+Npm_install:
   stage: Build
   script:
    - npm install --only=dev
@@ -15,7 +15,7 @@ Build_Job:
       - node_modules/
     expire_in: 10 min
    
-Test_Job:
+Mocha_tests:
   stage: Test
   script:
    - npm test
@@ -25,7 +25,7 @@ Test_Job:
       - test-results.xml
     expire_in: 10 min
     
-Analysis_Job:
+SonarQube_analysis:
   stage: Inspect
   script:
    - sonar-scanner
