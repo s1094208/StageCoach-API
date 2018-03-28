@@ -12,7 +12,7 @@ Prepare_Build_Job:
   artifacts:
     paths:
       - node_modules/
-  expire_in: 5 mins
+  expire_in: 5 minutes
    
 Execute_Tests_Job:
   stage: Test
