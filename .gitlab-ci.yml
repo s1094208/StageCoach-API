@@ -3,6 +3,7 @@ stages:
   - Build
   - Test
   - Inspect
+  - Deploy
   - Clean
 
 Npm_install:
@@ -29,3 +30,23 @@ SonarQube_analysis:
   stage: Inspect
   script:
    - sonar-scanner
+   
+Deploy_to_test:
+  stage: Deploy
+  script:
+    - echo "Deploy to test server"
+  environment:
+    name: staging
+    url: https://145.97.16.184:3002
+  only:
+  - develop
+  
+Deploy_to_acceptance:
+  stage: Deploy
+  script:
+    - echo "Deploy to test server"
+  environment:
+    name: staging
+    url: https://145.97.16.184:3001
+  only:
+  - master
