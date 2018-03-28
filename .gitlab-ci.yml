@@ -9,6 +9,7 @@ Prepare_Build_Job:
   stage: Prepare
   script:
    - npm install --only=dev
+   - npm install
   artifacts:
     paths:
       - node_modules/
