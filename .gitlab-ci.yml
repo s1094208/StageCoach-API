@@ -5,8 +5,8 @@ stages:
   - Inspect
   - Clean
 
-Prepare_Build_Job:
-  stage: Prepare
+Build_Job:
+  stage: Build
   script:
    - npm install --only=dev
    - npm install
@@ -15,13 +15,17 @@ Prepare_Build_Job:
       - node_modules/
     expire_in: 10 min
    
-Execute_Tests_Job:
+Test_Job:
   stage: Test
   script:
    - npm test
+  artifacts:
+    paths:
+      - coverage/
+      - test-results.xml
+    expire_in: 10 min
+    
+Analysis_Job:
+  stage: Inspect
+  script:
    - sonar-scanner
-   
-#Analysis_Job:
-#  stage: Inspect
-#  script:
-#   - sonar-scanner
