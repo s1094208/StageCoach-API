@@ -1,11 +1,3 @@
-cache:
-  untracked: true
-  key: "$CI_BUILD_REF_NAME"
-  paths:
-    - node_modules/
-    - test-results.xml
-    - coverage/
-
 stages:
   - Prepare
   - Build
@@ -17,6 +9,10 @@ Prepare_Build_Job:
   stage: Prepare
   script:
    - npm install --only=dev
+  artifacts:
+    paths:
+      - node_modules/
+  expire_in: 5 mins
    
 Execute_Tests_Job:
   stage: Test
