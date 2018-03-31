@@ -70,8 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: {
       type: DataTypes.DATE,
     }
-  }, {
-  });
+  },{});
 
   User.associate = function(models) {
     User.belongsToMany(models.Role, {

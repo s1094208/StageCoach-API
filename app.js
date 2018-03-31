@@ -2,10 +2,11 @@ var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var logger = require('morgan');
-
+require('dotenv').config();
+const cors = require('./middleware/cors.middleware');
 var apiRouter = express.Router();
 
-let usersRouter = require('./routes/users');
+let usersRouter = require('./routes/user.routes');
 
 let app = express();
 
@@ -15,15 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Handle CORS
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-  if (req.method === 'OPTIONS') {
-    res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
-    return res.status(200).json({});
-  };
-  next();
-});
+app.use(cors);
 
 app.use('/api', apiRouter);
 
