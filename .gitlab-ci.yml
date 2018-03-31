@@ -15,7 +15,7 @@ Npm_install:
     paths:
       - node_modules/
     expire_in: 10 min
-   
+
 Mocha_tests:
   stage: Test
   script:
@@ -25,28 +25,26 @@ Mocha_tests:
       - coverage/
       - test-results.xml
     expire_in: 10 min
-    
+
 SonarQube_analysis:
   stage: Inspect
   script:
    - sonar-scanner
-   
+
 Deploy_to_test:
   stage: Deploy
   script:
     - echo "Deploy to test server"
-    - docker --version
   environment:
     name: Test
     url: https://145.97.16.184:3002
   only:
   - develop
-  
+
 Deploy_to_acceptance:
   stage: Deploy
   script:
     - echo "Deploy to acceptance server"
-    - docker --version
   environment:
     name: Acceptance
     url: https://145.97.16.184:3001
