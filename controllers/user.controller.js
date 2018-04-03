@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 
 exports.getUserById = (req, res, next) => {
   let id = req.params.id;
-  db.User.findById(id, {include: "Roles"}).then(result => {
+  db.User.findById(id, {include: "roles"}).then(result => {
     if (result == null) {
       res.status(404).json({message: 'Couldn\'t find a user with the id: ' + id});
     } else {
@@ -32,17 +32,23 @@ exports.create = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   db.User.findOne({where: {email: req.body.email}, raw: true}).then(user => {
+      console.log(user)
     if (!user) {
+      console.log('defuq');
       res.status(401).json({message: 'Unauthorized'});
     } else {
+      console.log(req.body.password + ' ' + user.password);
       bcrypt.compare(req.body.password, user.password, function (err, bcryptRes) {
+        console.log(bcryptRes);
         if (bcryptRes === true) {
+          console.log('LALKJKLA')
           user.password = undefined;
           res.status(200).json({
             message: 'Auth successful',
             token: jwt.sign({user: user}, process.env.JWT_KEY, {expiresIn: '1h'})
           });
         } else {
+          console.log('nananana');
           res.status(401).json({
             message: 'Unauthorized'
           });
