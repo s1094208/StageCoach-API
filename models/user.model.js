@@ -1,9 +1,5 @@
 'use strict';
 
-const bcrypt = require('bcrypt');
-const Promise = require('bluebird');
-const hashPassword = Promise.promisify(bcrypt.hash);
-
 module.exports = (sequelize, DataTypes) => {
   var User = sequelize.define('User', {
     id: {
@@ -46,33 +42,15 @@ module.exports = (sequelize, DataTypes) => {
         len: [10,10],
         isNumeric: true,
       }
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [1, 255],
-        isEmail: true,
-      }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        // Min 8 characters, min 1 letter, special and number
-        is: /^(?=.*[\d])(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*])[\w!@#$%^&*]{8,}$/
-      }
-    },
-    createdAt: {
-      type: DataTypes.DATE,
-    },
-    updatedAt: {
-      type: DataTypes.DATE,
     }
-  },{});
+  },{ timestamps: false });
 
   User.associate = function(models) {
+    User.hasOne(models.Account, {
+      as: 'account',
+      foreignKey: 'userId'
+    });
+
     User.belongsToMany(models.Role, {
        as: 'roles',
        through: {
@@ -82,13 +60,6 @@ module.exports = (sequelize, DataTypes) => {
        foreignKey: 'userId'
      });
   };
-
-  // This hook, for some reason doesn't work when declared in the define options.
-  User.beforeCreate((user, options) => {
-    return hashPassword(user.password, 10).then(hashedPw => {
-      user.password = hashedPw;
-    });
-  });
 
   return User;
 };

@@ -31,21 +31,21 @@ exports.create = (req, res, next) => {
 };
 
 exports.login = (req, res, next) => {
-  db.User.findOne({where: {email: req.body.email}, raw: true}).then(user => {
-      console.log(user)
-    if (!user) {
+  db.Account.findOne({where: {email: req.body.email}, raw: true}).then(account => {
+      console.log(account)
+    if (!account) {
       console.log('defuq');
       res.status(401).json({message: 'Unauthorized'});
     } else {
-      console.log(req.body.password + ' ' + user.password);
-      bcrypt.compare(req.body.password, user.password, function (err, bcryptRes) {
+      console.log(req.body.password + ' ' + account.password);
+      bcrypt.compare(req.body.password, account.password, function (err, bcryptRes) {
         console.log(bcryptRes);
         if (bcryptRes === true) {
           console.log('LALKJKLA')
-          user.password = undefined;
+          account.password = undefined;
           res.status(200).json({
             message: 'Auth successful',
-            token: jwt.sign({user: user}, process.env.JWT_KEY, {expiresIn: '1h'})
+            token: jwt.sign({account: account}, process.env.JWT_KEY, {expiresIn: '1h'})
           });
         } else {
           console.log('nananana');

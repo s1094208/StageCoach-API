@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     }
   }, {});
+  
   UserRole.associate = function(models) {
     // associations can be defined here
   };

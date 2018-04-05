@@ -3,6 +3,7 @@ var express = require('express');
 var path = require('path');
 var logger = require('morgan');
 require('dotenv').config();
+var mail = require('./mail.js');
 const cors = require('./middleware/cors.middleware');
 var apiRouter = express.Router();
 

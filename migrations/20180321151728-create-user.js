@@ -22,23 +22,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true
-      },
-      password: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      createdAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('NOW()')
-      },
-      updatedAt: {
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('NOW()')
       }
     });
   },
