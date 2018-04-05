@@ -30,6 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     passwordResetToken: {
       type: DataTypes.STRING,
+      unique: true,
       allowNull: true
     },
     verified: {
@@ -56,5 +57,14 @@ module.exports = (sequelize, DataTypes) => {
       account.password = hashedPw;
     });
   });
+
+  Account.beforeBulkUpdate((account, options) => {
+    if(account.attributes.password != undefined) {
+      return hashPassword(account.attributes.password, 10).then(hashedPw => {
+        account.attributes.password = hashedPw;
+      });
+    }
+  });
+
   return Account;
 };
