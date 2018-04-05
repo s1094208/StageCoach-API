@@ -4,5 +4,6 @@ const checkAuthentication = require('../middleware/auth.middleware');
 const accountController = require('../controllers/account.controller');
 
 router.get('/', checkAuthentication, accountController.getInfo);
+router.post('/recover', accountController.sendRecoverEmail);
 
 module.exports = router;
