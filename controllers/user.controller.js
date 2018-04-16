@@ -27,7 +27,6 @@ exports.getAll = (req, res, next) => {
 exports.create = (req, res, next) => {
   let user = req.body;
   db.User.create(user).then((result) => {
-    console.log(result);
     res.status(200).json({});
   }).catch(error => {
     console.log(error);
@@ -39,7 +38,6 @@ exports.update = (req, res, next) => {
   let user = req.body;
 
   db.User.update(user, {where: {id: req.accountData.userId}, returning: true}).then(result => {
-    console.log(result);
     res.status(200).json({message: 'User updated', user: result[1][0]});
   }).catch(error => {
     console.log(error);
@@ -50,23 +48,17 @@ exports.update = (req, res, next) => {
 
 exports.login = (req, res, next) => {
   db.Account.findOne({where: {email: req.body.email}, raw: true}).then(account => {
-      console.log(account)
     if (!account) {
-      console.log('defuq');
       res.status(401).json({message: 'Unauthorized'});
     } else {
-      console.log(req.body.password + ' ' + account.password);
       bcrypt.compare(req.body.password, account.password, function (err, bcryptRes) {
-        console.log(bcryptRes);
         if (bcryptRes === true) {
-          console.log('LALKJKLA')
           account.password = undefined;
           res.status(200).json({
             message: 'Auth successful',
             token: jwt.sign({account: account}, process.env.JWT_KEY, {expiresIn: '1h'})
           });
         } else {
-          console.log('nananana');
           res.status(401).json({
             message: 'Unauthorized'
           });
