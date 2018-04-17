@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate: {
         len: [0, 255],
-        isAlpha: true,
+        is: /^[a-zA-Z\s\']*$/,
       }
     },
     lastName: {
@@ -41,6 +41,13 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         len: [10,10],
         isNumeric: true,
+      }
+    },
+    linkedIn: {
+      type: DataTypes.STRING,
+      unique: true,
+      validate: {
+        not: /^(http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/
       }
     }
   },{ timestamps: false });
