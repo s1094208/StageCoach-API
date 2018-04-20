@@ -1,6 +1,8 @@
 const db = require('../models/index');
 const mail = require('../mail.js');
 const crypto = require('crypto');
+const Promise = require('bluebird');
+const sendMail = Promise.promisify(mail.sendMail);
 
 exports.getInfo = (req, res, next) => {
   const userId = req.accountData.userId;
@@ -20,6 +22,37 @@ exports.getInfo = (req, res, next) => {
     });
     res.status(200).json(transformedResult);
   });
+};
+
+exports.sendVerificationEmail = (user) => {
+    const email = user.email;
+
+    db.Account.findOne({where: {email: email}, include: {association: 'user'}})
+        .then(account => {
+
+            const generatedVerificationToken = crypto.randomBytes(16).toString('hex');
+
+            if (account) {
+                db.Account.update({accountVerifyToken: generatedVerificationToken}, {where: {email: email}}).then(result => {
+
+                    const message = {
+                        from: 'stagecoach@hsleiden.nl',
+                        to: email,
+                        subject: 'Verify your e-mail address',
+                        html: 'Hello ' + account.user.firstName + '<br><br>'
+                        + 'You have registered a new account at StageCoach. To finish the registration of your new account, '
+                        + 'you need to verify your e-mail address. You can do this by following the link underneath. <br>'
+                        + '<a href="http://localhost:4200/auth/verify/' + generatedVerificationToken + '">localhost:4200/auth/verify/' + generatedVerificationToken + '</a><br>'
+                        + '<br><br>'
+                        + 'StageCoach',
+                    };
+
+                    return mail.sendMail(message);
+                })
+            }
+        }).catch(error => {
+            throw error;
+    });
 };
 
 exports.sendRecoverEmail = (req, res, next) => {

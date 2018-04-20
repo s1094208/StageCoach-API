@@ -33,8 +33,13 @@ module.exports = (sequelize, DataTypes) => {
       unique: true,
       allowNull: true
     },
-    verified: {
+    emailVerified: {
       type: DataTypes.BOOLEAN,
+    },
+    accountVerifyToken: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: true
     },
     createdAt: {
       type: DataTypes.DATE,

@@ -1,6 +1,8 @@
 const db = require('../models/index');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const mail = require('../mail.js');
+const account = require('./account.controller.js');
 
 exports.getUserById = (req, res, next) => {
   let id = req.params.id;
@@ -22,12 +24,18 @@ exports.getAll = (req, res, next) => {
 exports.create = (req, res, next) => {
   let user = req.body;
   db.User.create(user).then((result) => {
-    console.log(result);
-    res.status(200).json({});
+    db.Account.create(user).then((result) => {
+        db.UserRoles.create(user).then((result) => {
+        });
+    });
+      account.sendVerificationEmail(user);
+      res.status(200).json({});
+
   }).catch(error => {
     console.log(error);
     res.status(422).json({message: error.message});
   });
+
 };
 
 exports.login = (req, res, next) => {
