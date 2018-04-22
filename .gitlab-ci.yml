@@ -1,8 +1,4 @@
 stages:
-  - Prepare
-  - Build
-  - Test
-  - Inspect
   - Deploy
   - Clean
   
@@ -40,8 +36,8 @@ Deploy_to_test:
   stage: Deploy
   script:
     - echo "Deploy to test server"
-    - mkdir -pv $TARGET_DIR
-    - rsync -r --delete ./ $TARGET_DIR
+    - mkdir -p $TARGET_DIR
+    - cp ./ $TARGET_DIR
   environment:
     name: Test
     url: https://145.97.16.184:3002
