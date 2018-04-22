@@ -10,6 +10,7 @@ Deploy_to_test:
   stage: Deploy
   before_script: 
     - apk add openssh
+    - apk add openrc
     - rc-update add sshd
     - rc-status
     - /etc/init.d/sshd start
