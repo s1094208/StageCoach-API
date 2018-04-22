@@ -18,6 +18,7 @@ Npm_install:
 
 Mocha_tests:
   stage: Test
+  allow_failure: true
   script:
    - npm test
   artifacts:
@@ -25,7 +26,6 @@ Mocha_tests:
       - coverage/
       - test-results.xml
     expire_in: 10 min
-    allow_failure: true
     
 SonarQube_analysis:
   stage: Inspect
