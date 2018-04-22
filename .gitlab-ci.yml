@@ -11,7 +11,7 @@ Deploy_to_test:
   script:
     - echo "Deploy to test server"
     - mkdir -p $TARGET_DIR
-    - cp ./ $TARGET_DIR
+    - cp . $TARGET_DIR
   environment:
     name: Test
     url: https://145.97.16.184:3002
