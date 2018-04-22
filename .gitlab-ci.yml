@@ -3,7 +3,7 @@ stages:
   - Clean
   
 variables:
-    TEST_ENV: home/stagecoach/test/$CI_PROJECT_NAME
+    TARGET_DIR: home/stagecoach/test/$CI_PROJECT_NAME
 
 Npm_install:
   stage: Build
