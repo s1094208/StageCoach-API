@@ -10,8 +10,8 @@ Deploy_to_test:
   stage: Deploy
   script:
     - echo "Deploy to test server"
-    - mkdir -p $TARGET_DIR
-    - cp . $TARGET_DIR
+    - ssh -p22 145.97.16.184 "rm -rf projects/stagecoach-api/test"
+    - scp -P22 -r . stagecoach@145.97.16.184:rojects/stagecoach-api/test"
   environment:
     name: Test
     url: https://145.97.16.184:3002
