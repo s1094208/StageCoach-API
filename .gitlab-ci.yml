@@ -4,10 +4,15 @@ stages:
   - Test
   - Inspect
   - Deploy
+  - Clean
+  
+variables:
+    TEST_ENV: home/stagecoach/test/$CI_PROJECT_NAME
 
 Npm_install:
   stage: Build
   script:
+   - pwd
    - npm install --only=dev
    - npm install
   artifacts:
@@ -17,6 +22,7 @@ Npm_install:
 
 Mocha_tests:
   stage: Test
+  allow_failure: true
   script:
    - npm test
   artifacts:
@@ -24,7 +30,7 @@ Mocha_tests:
       - coverage/
       - test-results.xml
     expire_in: 10 min
-
+    
 SonarQube_analysis:
   stage: Inspect
   script:
@@ -34,6 +40,8 @@ Deploy_to_test:
   stage: Deploy
   script:
     - echo "Deploy to test server"
+    - mkdir -pv $TARGET_DIR
+    - rsync -r --delete ./ $TARGET_DIR
   environment:
     name: Test
     url: https://145.97.16.184:3002
