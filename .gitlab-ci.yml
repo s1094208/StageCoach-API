@@ -9,6 +9,7 @@ stages:
 Npm_install:
   stage: Build
   script:
+   - pwd
    - npm install --only=dev
    - npm install
   artifacts:
