@@ -12,6 +12,7 @@ Deploy_to_test:
     - apk add openssh
     - apk add openrc
     - rc-update add sshd
+    - touch /run/openrc/softlevel
     - rc-status
     - /etc/init.d/sshd start
   script:
