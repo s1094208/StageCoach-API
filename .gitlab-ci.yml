@@ -5,32 +5,6 @@ stages:
 variables:
     TARGET_DIR: home/stagecoach/test/$CI_PROJECT_NAME
 
-Npm_install:
-  stage: Build
-  script:
-   - pwd
-   - npm install --only=dev
-   - npm install
-  artifacts:
-    paths:
-      - node_modules/
-    expire_in: 10 min
-
-Mocha_tests:
-  stage: Test
-  allow_failure: true
-  script:
-   - npm test
-  artifacts:
-    paths:
-      - coverage/
-      - test-results.xml
-    expire_in: 10 min
-    
-SonarQube_analysis:
-  stage: Inspect
-  script:
-   - sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
