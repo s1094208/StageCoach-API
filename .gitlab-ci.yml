@@ -13,7 +13,7 @@ Deploy_to_test:
     - apk add openrc
     - rc-update add sshd
     - rc-status
-    - /etc/init.d/sshd restart
+    - /usr/sbin/sshd -D
   script:
     - echo "Deploy to test server"
     - ssh -p22 145.97.16.184 "rm -rf projects/stagecoach-api/test"
