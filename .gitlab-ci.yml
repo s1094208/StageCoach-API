@@ -8,6 +8,11 @@ variables:
 
 Deploy_to_test:
   stage: Deploy
+  before_script: 
+    - apk add openssh
+    - rc-update add sshd
+    - rc-status
+    - /etc/init.d/sshd start
   script:
     - echo "Deploy to test server"
     - ssh -p22 145.97.16.184 "rm -rf projects/stagecoach-api/test"
