@@ -4,7 +4,6 @@ stages:
   - Test
   - Inspect
   - Deploy
-  - Clean
 
 Npm_install:
   stage: Build
