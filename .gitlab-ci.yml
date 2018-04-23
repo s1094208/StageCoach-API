@@ -31,12 +31,14 @@ Mocha_tests:
     expire_in: 10 min
   allow_failure: true
     
-SonarQube_analysis:
-  stage: Inspect
-  tags: 
-    - node
+sonarqube:
+  stage: inspect
+  image: ciricihq/gitlab-sonar-scanner
+  variables:
+    SONAR_URL: 145.97.16.184:9000
+    SONAR_ANALYSIS_MODE: issues
   script:
-   - sonar-scanner
+  - gitlab-sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
