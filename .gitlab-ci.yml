@@ -29,7 +29,7 @@ Mocha_tests:
       - coverage/
       - test-results.xml
     expire_in: 10 min
-    allow_failure: true
+  allow_failure: true
     
 SonarQube_analysis:
   stage: Inspect
