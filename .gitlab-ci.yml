@@ -5,7 +5,6 @@ stages:
 variables:
     TARGET_DIR: home/stagecoach/test/$CI_PROJECT_NAME
 
-
 Deploy_to_test:
   stage: Deploy
   before_script: 
