@@ -1,22 +1,47 @@
 stages:
+  - Prepare
+  - Build
+  - Test
+  - Inspect
   - Deploy
   - Clean
-  
-variables:
-    TARGET_DIR: home/stagecoach/test/$CI_PROJECT_NAME
+
+Npm_install:
+  stage: Build
+  tags:
+    - node
+  script:
+   - npm install --only=dev
+   - npm install
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 10 min
+
+Mocha_tests:
+  stage: Test
+  tags:
+    -node
+  script:
+   - npm test
+  artifacts:
+    paths:
+      - coverage/
+      - test-results.xml
+    expire_in: 10 min
+    allow_failure: true
+    
+SonarQube_analysis:
+  stage: Inspect
+  tags: 
+    - node
+  script:
+   - sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
-  before_script: 
-    - apk add openssh
-    - apk add openrc
-    - rc-update add sshd
-    - rc-status
-    - /usr/sbin/sshd -D
   script:
     - echo "Deploy to test server"
-    - ssh -p22 145.97.16.184 "rm -rf projects/stagecoach-api/test"
-    - scp -P22 -r . stagecoach@145.97.16.184:rojects/stagecoach-api/test"
   environment:
     name: Test
     url: https://145.97.16.184:3002
