@@ -21,7 +21,7 @@ Npm_install:
 Mocha_tests:
   stage: Test
   tags:
-    - node
+    - sonar
   script:
    - npm test
   artifacts:
