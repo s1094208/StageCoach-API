@@ -21,7 +21,7 @@ Npm_install:
 Mocha_tests:
   stage: Test
   tags:
-    -node
+    - node
   script:
    - npm test
   artifacts:
