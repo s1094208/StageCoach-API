@@ -33,12 +33,10 @@ Mocha_tests:
     
 sonarqube:
   stage: Inspect
-  image: ciricihq/gitlab-sonar-scanner
-  variables:
-    SONAR_URL: 145.97.16.184:9000
-    SONAR_ANALYSIS_MODE: issues
+  tags:
+    - node
   script:
-  - gitlab-sonar-scanner
+    - sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
