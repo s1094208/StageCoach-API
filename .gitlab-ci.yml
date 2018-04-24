@@ -5,6 +5,38 @@ stages:
   - Inspect
   - Deploy
   - Clean
+  
+Npm_install:
+  stage: Build
+  tags:
+    - node
+  script:
+   - npm install --only=dev
+   - npm install
+  artifacts:
+    paths:
+      - node_modules/
+    expire_in: 10 min
+
+Mocha_tests:
+  stage: Test
+  tags:
+    - node
+  script:
+   - npm test
+  artifacts:
+    paths:
+      - coverage/
+      - test-results.xml
+    expire_in: 10 min
+  allow_failure: true
+    
+sonarqube:
+  stage: Inspect
+  tags:
+    - sonar
+  script:
+    - sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
