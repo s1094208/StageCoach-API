@@ -30,10 +30,6 @@ app.use((req, res, next) => {
 
 app.use('/api', apiRouter);
 
-apiRouter.use('/test', (req, res, next) => {
-   res.status(200).json('Banzaai fucker'); 
-});
-
 apiRouter.use('/account', accountRouter);
 apiRouter.use('/users', usersRouter);
 
