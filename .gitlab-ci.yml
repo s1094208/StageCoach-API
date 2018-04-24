@@ -36,8 +36,6 @@ sonarqube:
   tags:
     - node
   script:
-    - npm install -g sonarqube-scanner
-    - npm install -D sonarqube-scanner
     - sonar-scanner
 
 Deploy_to_test:
