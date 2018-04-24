@@ -31,10 +31,13 @@ exports.sendVerificationEmail = (user) => {
         .then(account => {
 
             const generatedVerificationToken = crypto.randomBytes(16).toString('hex');
+            console.log('We hebben het account gevonden');
+            console.log(account);
 
             if (account) {
                 db.Account.update({accountVerifyToken: generatedVerificationToken}, {where: {email: email}}).then(result => {
 
+                    console.log('Het account is true');
                     const message = {
                         from: 'stagecoach@hsleiden.nl',
                         to: email,
@@ -47,6 +50,7 @@ exports.sendVerificationEmail = (user) => {
                         + 'StageCoach',
                     };
 
+                    console.log('Email wordt verstuurd');
                     return mail.sendMail(message);
                 })
             }
@@ -102,4 +106,14 @@ exports.resetPassword = (req, res, next) => {
     .catch(error => {
       res.status(404).json({message: "Could not verify the integrity of the token"});
     });
+};
+
+exports.verifyAccount = (req, res, next) => {
+    db.Account.update({emailVerified: true, accountVerifyToken: null}, {where: {accountVerifyToken: req.body.token}})
+    .then(result => {
+        res.status(200).json({message: "Account has been verified"});
+    })
+        .catch(error => {
+            res.status(404).json({message: "Could not verify the integrity of the token"});
+        });
 };

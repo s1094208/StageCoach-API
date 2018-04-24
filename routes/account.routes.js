@@ -6,5 +6,6 @@ const accountController = require('../controllers/account.controller');
 router.get('/', checkAuthentication, accountController.getInfo);
 router.post('/recover', accountController.sendRecoverEmail);
 router.post('/reset', accountController.resetPassword);
+router.post('/verify', accountController.verifyAccount);
 
 module.exports = router;

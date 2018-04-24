@@ -26,9 +26,10 @@ exports.create = (req, res, next) => {
   db.User.create(user).then((result) => {
     db.Account.create(user).then((result) => {
         db.UserRoles.create(user).then((result) => {
+            console.log('En dan nu een email versturen');
+            account.sendVerificationEmail(user);
         });
     });
-      account.sendVerificationEmail(user);
       res.status(200).json({});
 
   }).catch(error => {
