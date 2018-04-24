@@ -44,8 +44,6 @@ Deploy_to_test:
     - deploy
   script:
     - echo "Deploy to test server"
-    - pwd
-    - ls -a
     - cp -f -r ../StageCoach-API/* /api/www-api-staging/
   environment:
     name: Test
