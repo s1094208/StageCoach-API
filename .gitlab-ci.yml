@@ -44,7 +44,7 @@ Deploy_to_test:
     - deploy
   script:
     - echo "Deploy to test server"
-    - cp -f ./ /www-staging/
+    - cp -f -r ./ /www-staging/
   environment:
     name: Test
     url: https://145.97.16.184:3002
