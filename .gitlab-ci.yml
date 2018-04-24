@@ -34,7 +34,7 @@ Mocha_tests:
 sonarqube:
   stage: Inspect
   tags:
-    - node
+    - sonar
   script:
     - sonar-scanner
 
