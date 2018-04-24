@@ -11,7 +11,7 @@ router.put('/:id', checkAuthentication, userController.update);
 router.post('/signup', userController.create);
 router.post('/login', userController.login);
 
-router.get('test', (req, res, next) => {
+router.get('/test', (req, res, next) => {
     res.send('Updated')
 });
 
