@@ -44,10 +44,10 @@ Deploy_to_test:
     - deploy
   script:
     - echo "Deploy to test server"
-    - cp -f -r ../StageCoach-API/* /api/www-api-staging/
+    - cp -f -r ../StageCoach-API/* /api/www-api-test/
   environment:
     name: Test
-    url: https://145.97.16.184:3002
+    url: https://145.97.16.184:8081
   only:
   - develop
 
@@ -55,19 +55,22 @@ Deploy_to_acceptance:
   stage: Deploy
   script:
     - echo "Deploy to acceptance server"
+    - cp -f -r ../StageCoach-API/* /api/www-api-acceptance/
   environment:
     name: Acceptance
-    url: https://145.97.16.184:3001
+    url: https://145.97.16.184:8082
   only:
   - master
+  when: manual
 
 Deploy_to_production:
   stage: Deploy
   script:
-    - echo "Deploy to production server"
+    - echo "Deploy to acceptance server"
+    - cp -f -r ../StageCoach-API/* /api/www-api-production/
   environment:
-    name: Acceptance
-    url: https://145.97.16.184:3000
-  when: manual
+    name: Production
+    url: https://145.97.16.184:8083
   only:
   - master
+  when: manual
