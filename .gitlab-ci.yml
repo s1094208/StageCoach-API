@@ -14,7 +14,7 @@ Deploy_to_test:
     - echo "Deploy to test server"
     - pwd
     - ls -a
-    - cp -f -r ../StageCoach-API/* /www-api-staging/
+    - cp -f -r ../StageCoach-API/* /api/www-api-staging/
   environment:
     name: Test
     url: https://145.97.16.184:3002
