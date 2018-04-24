@@ -13,7 +13,7 @@ Deploy_to_test:
   script:
     - echo "Deploy to test server"
     - pwd
-    - cp -f -r ./* /www-staging/
+    - cp -f -r * /www-staging/
   environment:
     name: Test
     url: https://145.97.16.184:3002
