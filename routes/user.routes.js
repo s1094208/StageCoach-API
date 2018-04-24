@@ -3,9 +3,6 @@ const router = express.Router();
 const checkAuthentication = require('../middleware/auth.middleware');
 const userController = require('../controllers/user.controller');
 
-router.get('/test', (req, res, next) => {
-    res.send('Updated')
-});
 
 router.get('/', checkAuthentication, userController.getAll);
 router.get('/:id', checkAuthentication, userController.getUserById);
