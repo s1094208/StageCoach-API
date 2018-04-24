@@ -53,6 +53,8 @@ Deploy_to_test:
 
 Deploy_to_acceptance:
   stage: Deploy
+  tags:
+    - deploy
   script:
     - echo "Deploy to acceptance server"
     - cp -f -r ../StageCoach-API/* /api/www-api-acceptance/
@@ -65,6 +67,8 @@ Deploy_to_acceptance:
 
 Deploy_to_production:
   stage: Deploy
+  tags:
+    - deploy
   script:
     - echo "Deploy to acceptance server"
     - cp -f -r ../StageCoach-API/* /api/www-api-production/
