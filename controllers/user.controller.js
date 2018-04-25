@@ -6,7 +6,12 @@ const account = require('./account.controller.js');
 
 exports.getUserById = (req, res, next) => {
   let id = req.params.id;
-  db.User.findById(id, {include: "roles"}).then(result => {
+  db.User.findById(id, {
+    include: [
+      { association: 'roles', through: {attributes: []} },
+      { association: 'account', attributes: ['email', 'createdAt', 'updatedAt'] },
+    ]
+  }).then(result => {
     if (result == null) {
       res.status(404).json({message: 'Couldn\'t find a user with the id: ' + id});
     } else {
@@ -36,28 +41,33 @@ exports.create = (req, res, next) => {
     console.log(error);
     res.status(422).json({message: error.message});
   });
-
 };
+
+exports.update = (req, res, next) => {
+  let user = req.body;
+
+  db.User.update(user, {where: {id: req.accountData.userId}, returning: true}).then(result => {
+    res.status(200).json({message: 'User updated', user: result[1][0]});
+  }).catch(error => {
+    console.log(error);
+    res.status(406).json({message: 'Could not update user'});
+  });
+
+}
 
 exports.login = (req, res, next) => {
   db.Account.findOne({where: {email: req.body.email}, raw: true}).then(account => {
-      console.log(account)
     if (!account) {
-      console.log('defuq');
       res.status(401).json({message: 'Unauthorized'});
     } else {
-      console.log(req.body.password + ' ' + account.password);
       bcrypt.compare(req.body.password, account.password, function (err, bcryptRes) {
-        console.log(bcryptRes);
         if (bcryptRes === true) {
-          console.log('LALKJKLA')
           account.password = undefined;
           res.status(200).json({
             message: 'Auth successful',
             token: jwt.sign({account: account}, process.env.JWT_KEY, {expiresIn: '1h'})
           });
         } else {
-          console.log('nananana');
           res.status(401).json({
             message: 'Unauthorized'
           });

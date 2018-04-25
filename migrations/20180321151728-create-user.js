@@ -22,6 +22,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
+      },
+      linkedIn: {
+        type: Sequelize.STRING,
+        unique: true
       }
     });
   },

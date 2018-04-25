@@ -5,9 +5,11 @@ stages:
   - Inspect
   - Deploy
   - Clean
-
+  
 Npm_install:
   stage: Build
+  tags:
+    - node
   script:
    - npm install --only=dev
    - npm install
@@ -18,6 +20,8 @@ Npm_install:
 
 Mocha_tests:
   stage: Test
+  tags:
+    - node
   script:
    - npm test
   artifacts:
@@ -25,39 +29,52 @@ Mocha_tests:
       - coverage/
       - test-results.xml
     expire_in: 10 min
-
-SonarQube_analysis:
+  allow_failure: true
+    
+sonarqube:
   stage: Inspect
+  tags:
+    - sonar
   script:
-   - sonar-scanner
+    - sonar-scanner
 
 Deploy_to_test:
   stage: Deploy
+  tags:
+    - deploy
   script:
     - echo "Deploy to test server"
+    - cp -f -r ../StageCoach-API/* /api/www-api-test/
   environment:
     name: Test
-    url: https://145.97.16.184:3002
+    url: https://145.97.16.184:8081
   only:
   - develop
 
 Deploy_to_acceptance:
   stage: Deploy
+  tags:
+    - deploy
   script:
     - echo "Deploy to acceptance server"
+    - cp -f -r ../StageCoach-API/* /api/www-api-acceptance/
   environment:
     name: Acceptance
-    url: https://145.97.16.184:3001
+    url: https://145.97.16.184:8082
   only:
   - master
+  when: manual
 
 Deploy_to_production:
   stage: Deploy
+  tags:
+    - deploy
   script:
-    - echo "Deploy to production server"
+    - echo "Deploy to acceptance server"
+    - cp -f -r ../StageCoach-API/* /api/www-api-production/
   environment:
-    name: Acceptance
-    url: https://145.97.16.184:3000
-  when: manual
+    name: Production
+    url: https://145.97.16.184:8083
   only:
   - master
+  when: manual
