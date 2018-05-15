@@ -39,7 +39,7 @@ exports.create = (req, res, next) => {
 
   }).catch(error => {
     console.log(error);
-    res.status(422).json({message: error.message});
+    res.status(422).json({message: error});
   });
 };
 

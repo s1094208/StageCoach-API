@@ -1,17 +1,17 @@
 {
   "development": {
-    "username": "qlcokqbn",
-    "password": "Ut1ntx53GNmjIPBW64v8seQxcIqdrbGJ",
-    "database": "qlcokqbn",
-    "host": "horton.elephantsql.com",
+    "username": "postgres",
+    "password": "610goofY",
+    "database": "stagecoach",
+    "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": true
   },
   "test": {
     "username": "postgres",
-    "password": "password",
+    "password": "610goofY",
     "database": "stagecoach-test",
-    "host": "145.97.16.184",
+    "host": "127.0.0.1",
     "dialect": "postgres",
     "logging": true
   },
